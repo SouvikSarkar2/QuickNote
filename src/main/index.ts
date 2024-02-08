@@ -1,13 +1,16 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import vibe from '@pyke/vibe'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 
 // In the main process.
+vibe.setup(app)
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    backgroundColor: '#00000000',
     width: 900,
     height: 670,
     show: false,
@@ -17,6 +20,7 @@ function createWindow(): void {
     title: 'QuickNote',
     // frame: false,
     vibrancy: 'under-window',
+    transparent: true,
     // titleBarStyle: 'hidden',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -25,7 +29,7 @@ function createWindow(): void {
     }
   })
 
-  mainWindow.setBackgroundMaterial('acrylic')
+  /* mainWindow.setBackgroundMaterial('acrylic') */
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -43,6 +47,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  vibe.applyEffect(mainWindow, 'acrylic')
 }
 
 // This method will be called when Electron has finished

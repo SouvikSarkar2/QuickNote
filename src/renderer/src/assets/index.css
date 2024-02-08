@@ -13,10 +13,22 @@
 
     @apply select-none;
 
-    @apply bg-transparent;
+    @apply bg-gray-800;
 
     @apply font-mono antialiased text-white;
 
     @apply overflow-hidden;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#555];
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
   }
 }
