@@ -1,5 +1,7 @@
+import { getNotes, readNote, writeNote } from '@/lib'
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import vibe from '@pyke/vibe'
+import { GetNotes, ReadNote, WriteNote } from '@shared/types'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
@@ -66,7 +68,9 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.handle('getNotes', (_, ...args: Parameters<GetNotes>) => getNotes(...args))
+  ipcMain.handle('readNote', (_, ...args: Parameters<ReadNote>) => readNote(...args))
+  ipcMain.handle('writeNote', (_, ...args: Parameters<WriteNote>) => writeNote(...args))
 
   createWindow()
 
